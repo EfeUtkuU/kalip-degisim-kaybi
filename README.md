@@ -18,3 +18,9 @@ Dürüst notlar
 - Excel'deki değişim sürelerinin %43'ü tam 60 dk; yuvarlak/varsayılan olabilir. Süresi girilmeyen değişimler makinenin ortancasıyla tahmin edilir ("tahmini").
 - Plan karşılaştırması kuramsaldır: termin, stok, kalıp hazırlığı hesaba katılmaz. Uygulamadan önce üretim planlamayla kontrol edin.
 - Gerçek ölçüm için Saha kaydı kullanılmalı; birkaç hafta sonra Excel'deki sürelerle karşılaştırılır.
+
+Windows
+- Windows 10/11 gerekir (Edge WebView2 ile gelir). Python 3.10+ ve Node.js kurulu olmalı.
+- `build_windows.bat` dosyasına çift tıkla; bitince `backend\dist\KalipDegisimKaybi\` klasörünü istediğin yere kopyala, içindeki `KalipDegisimKaybi.exe` dosyasını aç.
+- Veriler `%APPDATA%\KalipDegisimKaybi` içinde saklanır.
+- Windows bilgisayarın yoksa GitHub'da Actions sekmesinden "Uygulamayı derle" iş akışını çalıştır; Windows ve macOS paketleri zip olarak indirilir.

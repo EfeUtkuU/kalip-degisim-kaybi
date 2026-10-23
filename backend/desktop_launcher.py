@@ -64,7 +64,12 @@ def main():
 
 
 def _log_path() -> str:
-    d = os.path.join(os.path.expanduser("~"), "Library", "Logs") if sys.platform == "darwin" else os.path.expanduser("~")
+    if sys.platform == "darwin":
+        d = os.path.join(os.path.expanduser("~"), "Library", "Logs")
+    elif sys.platform == "win32":
+        d = os.environ.get("LOCALAPPDATA") or os.path.expanduser("~")
+    else:
+        d = os.path.expanduser("~")
     os.makedirs(d, exist_ok=True)
     return os.path.join(d, "KalipDegisimKaybi.log")
 

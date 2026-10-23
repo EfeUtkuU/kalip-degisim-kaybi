@@ -2,6 +2,7 @@
 import os
 import struct
 import subprocess
+import sys
 import tempfile
 import zlib
 
@@ -44,8 +45,25 @@ def png(arr):
     return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 6, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b"")
 
 
+def write_ico(path):
+    """Windows simgesi: PNG gömülü .ico (16–256 px)."""
+    sizes = (16, 32, 48, 64, 128, 256)
+    pngs = [png(make(s)) for s in sizes]
+    head = struct.pack("<HHH", 0, 1, len(sizes))
+    offset = 6 + 16 * len(sizes)
+    entries, blob = b"", b""
+    for s, data in zip(sizes, pngs):
+        entries += struct.pack("<BBBBHHII", 0 if s == 256 else s, 0 if s == 256 else s, 0, 0, 1, 32, len(data), offset + len(blob))
+        blob += data
+    open(path, "wb").write(head + entries + blob)
+
+
 if __name__ == "__main__":
     here = os.path.dirname(os.path.abspath(__file__))
+    if sys.platform == "win32":
+        write_ico(os.path.join(here, "icon.ico"))
+        print("icon.ico hazır")
+        raise SystemExit(0)
     with tempfile.TemporaryDirectory() as t:
         iconset = os.path.join(t, "icon.iconset")
         os.makedirs(iconset)

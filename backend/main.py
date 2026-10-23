@@ -30,6 +30,8 @@ def data_dir() -> Path:
         p = Path(env)
     elif sys.platform == "darwin":
         p = Path.home() / "Library" / "Application Support" / "KalipDegisimKaybi"
+    elif sys.platform == "win32":
+        p = Path(os.environ.get("APPDATA") or Path.home()) / "KalipDegisimKaybi"
     else:
         p = Path.home() / ".kalip-degisim-kaybi"
     p.mkdir(parents=True, exist_ok=True)
