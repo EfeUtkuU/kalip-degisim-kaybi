@@ -1,0 +1,3 @@
+# Masaüstü .app paketi için ek bağımlılıklar
+pywebview>=5.0
+pyinstaller>=6.6
